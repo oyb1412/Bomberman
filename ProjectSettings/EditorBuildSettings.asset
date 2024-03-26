@@ -6,7 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Bomberman.unity
+    path: Assets/Scenes/Login.unity
+    guid: 9a9fddd485d50864f817dafb6fe3a42a
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 0c0a3e33c672f3048ac77aada946d2b1
+  - enabled: 1
+    path: Assets/Scenes/Room.unity
+    guid: c9ea24c64698e744db992d3c71fc6b46
+  - enabled: 1
+    path: Assets/Scenes/InGame.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

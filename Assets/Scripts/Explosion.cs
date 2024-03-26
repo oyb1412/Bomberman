@@ -1,15 +1,13 @@
+using Photon.Pun;
 using UnityEngine;
 
-public class Explosion : MonoBehaviour
+public class Explosion : MonoBehaviourPunCallbacks
 {
-    public AnimatedSpriteRenderer start;
-    public AnimatedSpriteRenderer middle;
-    public AnimatedSpriteRenderer end;
-
-    public void SetActiveRenderer(AnimatedSpriteRenderer renderer) {
-        start.enabled = renderer == start;
-        middle.enabled = renderer == middle;
-        end.enabled = renderer == end;
+    private PhotonView view;
+    public Animator anime;
+    private void Awake() {
+        view = GetComponent<PhotonView>();
+        anime = GetComponent<Animator>();
     }
 
     public void SetDirection(Vector2 direction) {

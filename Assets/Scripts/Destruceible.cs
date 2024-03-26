@@ -1,19 +1,38 @@
+using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 
-public class Destruceible : MonoBehaviour
+public class Destruceible : MonoBehaviourPunCallbacks
 {
     public float destructionTime = 1f;
 
     public float itemSpawnChance = 0.2f;
-    public GameObject[] spawnbleItems;
-    private void Start() {
-        Destroy(gameObject, destructionTime);
-    }
 
+    private PhotonView view;
+
+    private void Awake() {
+        view = GetComponent<PhotonView>();
+    }
+    private void Start() {
+        if(view.IsMine)
+            StartCoroutine(DestroyCoroutune(gameObject, destructionTime));
+    }
+    IEnumerator DestroyCoroutune(GameObject go, float time) {
+        yield return new WaitForSeconds(time);
+        PhotonNetwork.Destroy(go);
+    }
     private void OnDestroy() {
-        if(spawnbleItems.Length > 0 && Random.value < itemSpawnChance) {
-            int randomIndex = Random.Range(0, spawnbleItems.Length);
-            Instantiate(spawnbleItems[randomIndex], transform.position, Quaternion.identity);
+        if(Random.value < itemSpawnChance) {
+            int randomIndex = Random.Range(0, 5);
+            if(randomIndex < 2) {
+                PhotonNetwork.Instantiate("ItemPickUpBlastExtraBomb", transform.position, Quaternion.identity);
+            }
+            else if(randomIndex > 1 && randomIndex < 4) {
+                PhotonNetwork.Instantiate("ItemPickUpBlastRadius", transform.position, Quaternion.identity);
+            }
+            else {
+                PhotonNetwork.Instantiate("ItemPickUpSpeedIncrease", transform.position, Quaternion.identity);
+            }
         }
     }
 }

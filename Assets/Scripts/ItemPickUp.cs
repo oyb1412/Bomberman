@@ -1,7 +1,14 @@
+using Photon.Pun;
+using System.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
-public class ItemPickUp : MonoBehaviour {
+public class ItemPickUp : MonoBehaviourPunCallbacks {
+    private PhotonView view;
+
+    private void Awake() {
+        view = GetComponent<PhotonView>();
+    }
     public enum ItemType {
        ExtraBomb,
        BlastRadius,
@@ -25,7 +32,7 @@ public class ItemPickUp : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D c) {
         if(c.CompareTag("Player")) {
             OnItemPickUp(c.gameObject);
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 }
